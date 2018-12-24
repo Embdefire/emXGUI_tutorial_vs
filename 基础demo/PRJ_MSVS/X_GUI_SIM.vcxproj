@@ -183,6 +183,7 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Listbox.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_LogoIconFont.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Messagebox.c" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveRect.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveWindow.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Number_Keyboard.c" />

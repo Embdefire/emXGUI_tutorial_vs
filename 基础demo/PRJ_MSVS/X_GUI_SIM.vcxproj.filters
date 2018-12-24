@@ -237,6 +237,9 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\SEG_NUM_64.c">
       <Filter>data\font</Filter>
     </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveRect.c">
+      <Filter>GUI_App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

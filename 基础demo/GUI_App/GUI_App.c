@@ -37,7 +37,7 @@ void	GUI_DEMO_ShowWave(void);
 void	GUI_DEMO_MoveWindow(void);
 void	GUI_DEMO_MultiWindow(void);
 void	GUI_DEMO_WatchTime(void);
-
+void	GUI_DEMO_MoveRect(void);
 
 
 void GUI_AppMain(void)
@@ -47,6 +47,7 @@ void GUI_AppMain(void)
 
 	while (1)
 	{
+		GUI_DEMO_MoveRect();
 		//GUI_DEMO_WatchTime();
 		//GUI_DEMO_MultiWindow();
 		//GUI_DEMO_MoveWindow();
