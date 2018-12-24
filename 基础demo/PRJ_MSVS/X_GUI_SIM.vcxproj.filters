@@ -240,6 +240,9 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveRect.c">
       <Filter>GUI_App</Filter>
     </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow2.c">
+      <Filter>GUI_App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">

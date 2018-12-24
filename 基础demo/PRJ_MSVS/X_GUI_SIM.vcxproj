@@ -186,6 +186,7 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveRect.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveWindow.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow.c" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow2.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Number_Keyboard.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Progressbar.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Radiobox.c" />
