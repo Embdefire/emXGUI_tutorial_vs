@@ -48,7 +48,7 @@ void GUI_AppMain(void)
 	while (1)
 	{
 		GUI_DEMO_MultiWindow2();
-		GUI_DEMO_MoveRect();
+    GUI_DEMO_RotateIcon();
 		//GUI_DEMO_WatchTime();
 		//GUI_DEMO_MultiWindow();
 		//GUI_DEMO_MoveWindow();

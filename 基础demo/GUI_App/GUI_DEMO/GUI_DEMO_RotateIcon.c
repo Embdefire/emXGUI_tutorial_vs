@@ -203,7 +203,7 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
 /*============================================================================*/
 
-void	GUI_DEMO_MoveRect(void)
+void	GUI_DEMO_RotateIcon(void)
 {
 	HWND	hwnd;
 	WNDCLASS	wcex;
