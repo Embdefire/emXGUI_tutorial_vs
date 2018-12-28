@@ -39,6 +39,9 @@ void	GUI_DEMO_MultiWindow(void);
 void	GUI_DEMO_WatchTime(void);
 void	GUI_DEMO_MoveRect(void);
 void	GUI_DEMO_MultiWindow2(void);
+void	GUI_DEMO_RadiaMenu(void);
+void	GUI_DEMO_Rotatebitmap(void);
+
 
 void GUI_AppMain(void)
 {
@@ -47,6 +50,8 @@ void GUI_AppMain(void)
 
 	while (1)
 	{
+    GUI_DEMO_Rotatebitmap();
+    GUI_DEMO_RadiaMenu();
 		GUI_DEMO_MultiWindow2();
     GUI_DEMO_RotateIcon();
 		//GUI_DEMO_WatchTime();

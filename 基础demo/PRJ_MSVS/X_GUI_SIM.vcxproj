@@ -183,14 +183,16 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Listbox.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_LogoIconFont.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Messagebox.c" />
-    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveRect.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveWindow.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow2.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Number_Keyboard.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Progressbar.c" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_RadiaMenu.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Radiobox.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_RectSpeed.c" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Rotatebitmap.cpp" />
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_RotateIcon.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_ScaleBitmap.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Scrollbar.c" />
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_ShowWave.cpp" />

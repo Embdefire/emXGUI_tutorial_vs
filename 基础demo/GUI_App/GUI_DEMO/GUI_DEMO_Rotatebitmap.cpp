@@ -13,7 +13,7 @@
 /*============================================================================*/
 extern "C" int	gdev_16bpp_rotate_bitmap(const SURFACE *pSurf,int cx,int cy,const BITMAP *bm,int angle);
 
-extern const unsigned char gImage_0[];
+extern "C" const unsigned char gImage_0[];
 /*============================================================================*/
 static BITMAP bm_0;
 
@@ -172,11 +172,11 @@ extern "C" void	GUI_DEMO_Rotatebitmap(void)
 //static void	AppMain(void)
 {
 	HWND	hwnd;
-	WNDCLASSEX	wcex;
+  WNDCLASS	wcex;
 	MSG msg;
 
 	/////
-	wcex.Tag 		    = WNDCLASSEX_TAG;
+	wcex.Tag 		    = WNDCLASS_TAG;
 
 	wcex.Style			= CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc	= WinProc; //设置主窗口消息处理的回调函数.
@@ -185,7 +185,7 @@ extern "C" void	GUI_DEMO_Rotatebitmap(void)
 	wcex.hInstance		= NULL;//hInst;
 	wcex.hIcon			= NULL;//LoadIcon(hInstance, (LPCTSTR)IDI_WIN32_APP_TEST);
 	wcex.hCursor		= NULL;//LoadCursor(NULL, IDC_ARROW);
-	wcex.hIconSm		= NULL;//LoadIcon(wcex.hInstance, (LPCTSTR)IDI_SMALL);
+	//wcex.hIconSm		= NULL;//LoadIcon(wcex.hInstance, (LPCTSTR)IDI_SMALL);
 
 	//创建主窗口
 	hwnd	=CreateWindowEx(	NULL,

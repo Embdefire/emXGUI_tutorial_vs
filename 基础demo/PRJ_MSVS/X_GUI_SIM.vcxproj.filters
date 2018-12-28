@@ -237,10 +237,16 @@
     <ClCompile Include="..\GUI_App\GUI_DEMO\res\SEG_NUM_64.c">
       <Filter>data\font</Filter>
     </ClCompile>
-    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MoveRect.c">
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow2.c">
       <Filter>GUI_App</Filter>
     </ClCompile>
-    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_MultiWindow2.c">
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_RotateIcon.c">
+      <Filter>GUI_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_RadiaMenu.c">
+      <Filter>GUI_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_Rotatebitmap.cpp">
       <Filter>GUI_App</Filter>
     </ClCompile>
   </ItemGroup>
