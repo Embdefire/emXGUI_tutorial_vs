@@ -112,15 +112,16 @@ static void dummy(HWND hwnd)
 
 static const BITMAP_ITEM _aBitmapItem[] = {
 
-    {0x1001, NULL,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"A", 	0XFFFFFF,			dummy,},
-    {0x1002, &bm_fish_0,  L"按钮" },
-    {0x1003, &bm_fish_0,  L"Menu3" },
-    {0x1004, &bm_fish_0,  L"Menu4" },
-    {0x1005, &bm_fish_0,  L"Menu5" },
-    {0x1006, &bm_fish_0,  L"Menu6" },
-    {0x1007, &bm_fish_0,  L"Menu7" },
-    {0x1008, &bm_fish_1,  L"Menu8" },
-    {0x1008, &bm_fish_5,  L"Menu9" },
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"A", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"按钮",		NULL, 	L"B", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"进度条",		NULL, 	L"C", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"显示汉字",		NULL, 	L"D", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_5,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"E", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"F", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"G", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"H", 	0XFFFFFF,			dummy},
+    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"I", 	0XFFFFFF,			dummy},
+
 
 };
 
@@ -263,6 +264,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 	    //
 	    // Bubble sort items to be able to draw background items first
 	    //
+      /* 排序后保证背后的图标先绘制，最后绘制前面的图标*/
 	    do
 	    {
 	      Swap = 0;
@@ -305,7 +307,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 		    //DrawRect(hdc,&rc);
 #else
 
-        if (pPara->pBitmapItem[pPara->pItemInfo[i].Index].pBitmap != NULL)
+        if (pPara->pBitmapItem[pPara->pItemInfo[i].Index].bmp != NULL)
         {
           RECT rc;
           const BITMAP *bm;
@@ -351,8 +353,48 @@ static void _Draw(HDC hdc,HWND hwnd)
           rc.w = ITEM_W;
           rc.h = ITEM_H;
 
-          SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
-          DrawText(hdc, (LPCWSTR)icon, -1, &rc, DT_VCENTER | DT_CENTER);
+          if (i != (pPara->NumItems - 1))
+          {
+            SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
+            DrawText(hdc, (LPCWSTR)icon, -1, &rc, DT_VCENTER | DT_CENTER);
+
+          }
+          else
+          {
+#if 0
+            /* 最前面的图标，放大 */
+            HDC f_hdc;
+            RECT rc0;
+
+            f_hdc = CreateMemoryDC(COLOR_FORMAT_XRGB8888,rc.w,rc.h);
+            ClrDisplay(f_hdc,NULL,0x0000ff); 
+            
+            SetTextColor(f_hdc, MapXRGB8888(f_hdc, 0xff0000));
+            /* 显示APP对应的字体图标 */
+            SetFont(f_hdc, iconFont);
+
+            rc0.x = rc.x;
+            rc0.y = rc.y;
+            rc0.w = rc.w;
+            rc0.h = rc.h;
+
+            DrawText(f_hdc, (LPCWSTR)icon, -1, &rc0, DT_VCENTER | DT_CENTER);
+
+            BitBlt(hdc, rc.x, rc.y, rc.w, rc.h,
+                f_hdc,0,0, SRCCOPY);
+            //StretchBlt(hdc,rc.x,rc.y,rc.w,rc.h,
+            //  f_hdc,0,0,rc.w,rc.h, SRCCOPY);
+            
+            DeleteDC(f_hdc);
+
+#else
+            SetTextColor(hdc, MapXRGB8888(hdc, 0xFF0000));
+            DrawText(hdc, (LPCWSTR)icon, -1, &rc, DT_VCENTER | DT_CENTER);
+
+#endif
+
+          }
+
           
           /* 恢复默认字体 */
           SetFont(hdc, defaultFont);
@@ -394,9 +436,10 @@ static void _Draw(HDC hdc,HWND hwnd)
 
 	    	int i;
 
+        
 	    	i =pPara->NumItems - 1;
 
-	    	pText =(pPara->pBitmapItem + pPara->pItemInfo[i].Index)->pText;
+	    	pText =(pPara->pBitmapItem + pPara->pItemInfo[i].Index)->pName;
 
 	    	rc.x =pPara->pItemInfo[i].xPos;
 	    	rc.y =pPara->pItemInfo[i].yPos;
@@ -406,7 +449,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 
 
 	    	SetPenColor(hdc,MapRGB(hdc,250,0,0));
-	    	DrawRect(hdc,&rc); 
+	    	//DrawRect(hdc,&rc); 
 
 
 	    	GetClientRect(hwnd,&rc);
