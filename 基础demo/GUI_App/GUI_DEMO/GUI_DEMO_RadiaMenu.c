@@ -1,7 +1,7 @@
 
 /*
  *GUI_DEMO_RadiaMenu.c
- *2018å¹´12æœˆ26æ—¥ä¸‹åˆ8:16:38
+ *2018Äê12ÔÂ26ÈÕÏÂÎç8:16:38
  *
  */
 
@@ -13,7 +13,7 @@ extern const unsigned char gImage_1[];
 extern const unsigned char gImage_5[];
 
 /*============================================================================*/
-//å®šä¹‰æ§ä»¶ID
+//¶¨Òå¿Ø¼şID
 #define	ID_OK		0x1000
 
 enum eMSG{
@@ -27,6 +27,19 @@ typedef struct {
   const int    id;
   const BITMAP *pBitmap;
   const WCHAR  *pText;
+
+  /* ÖØ¹¹³ÉÀàËÆCListMenuµÄ±íµ¥ */
+  /* APPÏÂ·½µÄÎÄ×Ö */
+  const WCHAR *pName;
+  /* Í¼±êµÄbmpÊı¾İÄÚÈİ£¬bmpÎªNULLÊ±Ê¹ÓÃicon×Ö·ûË÷Òı */
+  const void *bmp;
+  /* Í¼±êµÄ×Ö·ûË÷Òı£¬bmp·Ç¿ÕÊ±±¾ÅäÖÃÎŞĞ§ */
+  void *icon;
+  /* Í¼±êÊ¹ÓÃµÄÑÕÉ« */
+  u32 color;
+  /* Í¼±ê¶ÔÓ¦µÄÓ¦ÓÃ³ÌĞò */
+  void(*cbStartup)(HWND hwnd);
+
 } BITMAP_ITEM;
 
 typedef struct {
@@ -72,6 +85,7 @@ static PARA  *pPara;
 static int _xPosRect = 0;
 static int _yPosRect = 0;
 
+#if 0
 static const BITMAP_ITEM _aBitmapItem[] = {
 
 		{0x1001, &bm_fish_0,  L"Menu1" },
@@ -85,6 +99,33 @@ static const BITMAP_ITEM _aBitmapItem[] = {
 		{0x1008, &bm_fish_5,  L"Menu9" },
 
 };
+
+#else
+
+/*
+*   Ó¦ÓÃ³ÌĞòµÄ¿Õ»Øµ÷º¯Êı
+*/
+static void dummy(HWND hwnd)
+{
+
+}
+
+static const BITMAP_ITEM _aBitmapItem[] = {
+
+    {0x1001, NULL,  L"Hello emXGUI" ,      L"GUIÓ¦ÓÃ",		NULL, 	L"A", 	0XFFFFFF,			dummy,},
+    {0x1002, &bm_fish_0,  L"°´Å¥" },
+    {0x1003, &bm_fish_0,  L"Menu3" },
+    {0x1004, &bm_fish_0,  L"Menu4" },
+    {0x1005, &bm_fish_0,  L"Menu5" },
+    {0x1006, &bm_fish_0,  L"Menu6" },
+    {0x1007, &bm_fish_0,  L"Menu7" },
+    {0x1008, &bm_fish_1,  L"Menu8" },
+    {0x1008, &bm_fish_5,  L"Menu9" },
+
+};
+
+#endif
+
 
 static ITEM_INFO   aItemInfo[ARR_SIZE(_aBitmapItem)];
 
@@ -242,6 +283,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 	    //
 	    for (i = 0; i < pPara->NumItems; i++)
 	    {
+#if 0
 	    	RECT rc;
 	    	const BITMAP *bm;
 
@@ -260,7 +302,67 @@ static void _Draw(HDC hdc,HWND hwnd)
 		    rc.h =ITEM_H;
 
 		    SetPenColor(hdc,MapRGB(hdc,50,50,100));
-		    DrawRect(hdc,&rc);
+		    //DrawRect(hdc,&rc);
+#else
+
+        if (pPara->pBitmapItem[pPara->pItemInfo[i].Index].pBitmap != NULL)
+        {
+          RECT rc;
+          const BITMAP *bm;
+
+          bm = pPara->pBitmapItem[pPara->pItemInfo[i].Index].pBitmap;
+
+          x = pPara->pItemInfo[i].xPos;
+          y = pPara->pItemInfo[i].yPos;
+
+          x += ((int)ITEM_W - (int)bm->Width) / 2;
+          y += ((int)ITEM_H - (int)bm->Height) / 2;
+          DrawBitmap(hdc, x, y, (pPara->pBitmapItem + pPara->pItemInfo[i].Index)->pBitmap, NULL);
+
+          rc.x = pPara->pItemInfo[i].xPos;
+          rc.y = pPara->pItemInfo[i].yPos;
+          rc.w = ITEM_W;
+          rc.h = ITEM_H;
+
+          SetPenColor(hdc, MapRGB(hdc, 50, 50, 100));
+          //DrawRect(hdc,&rc);
+        }
+        else
+        {
+          RECT rc;
+          const BITMAP *bm;
+          const WCHAR  *icon = pPara->pBitmapItem[pPara->pItemInfo[i].Index].icon;
+          u32 icon_color = pPara->pBitmapItem[pPara->pItemInfo[i].Index].color;
+
+          /* ÏÔÊ¾APP¶ÔÓ¦µÄ×ÖÌåÍ¼±ê */
+          SetFont(hdc, iconFont);
+
+          bm = pPara->pBitmapItem[pPara->pItemInfo[i].Index].pBitmap;
+
+          x = pPara->pItemInfo[i].xPos;
+          y = pPara->pItemInfo[i].yPos;
+
+          //x += ((int)ITEM_W - (int)bm->Width) / 2;
+          //y += ((int)ITEM_H - (int)bm->Height) / 2;
+          //DrawBitmap(hdc, x, y, (pPara->pBitmapItem + pPara->pItemInfo[i].Index)->pBitmap, NULL);
+
+          rc.x = pPara->pItemInfo[i].xPos;
+          rc.y = pPara->pItemInfo[i].yPos;
+          rc.w = ITEM_W;
+          rc.h = ITEM_H;
+
+          SetTextColor(hdc, MapXRGB8888(hdc, icon_color));
+          DrawText(hdc, (LPCWSTR)icon, -1, &rc, DT_VCENTER | DT_CENTER);
+          
+          /* »Ö¸´Ä¬ÈÏ×ÖÌå */
+          SetFont(hdc, defaultFont);
+
+
+          //SetPenColor(hdc, MapRGB(hdc, 50, 50, 100));
+          //DrawRect(hdc,&rc);
+
+        }
+#endif
 
 
 	    }
@@ -304,7 +406,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 
 
 	    	SetPenColor(hdc,MapRGB(hdc,250,0,0));
-	    	DrawRect(hdc,&rc);
+	    	DrawRect(hdc,&rc); 
 
 
 	    	GetClientRect(hwnd,&rc);
@@ -313,6 +415,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 	    	//rc.h =30;
 	    	//rc.y -=rc.h;
 	    	//DrawText(hdc,pText,-1,&rc,DT_VCENTER|DT_CENTER);
+
 			TextOut(hdc,_xPosRect,_yPosRect,pText,-1);
 
 
@@ -337,9 +440,9 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
 	switch(msg)
 	{
-		case WM_CREATE: //çª—å£åˆ›å»ºæ—¶,ä¼šè‡ªåŠ¨äº§ç”Ÿè¯¥æ¶ˆæ¯,åœ¨è¿™é‡Œåšä¸€äº›åˆå§‹åŒ–çš„æ“ä½œæˆ–åˆ›å»ºå­çª—å£.
+		case WM_CREATE: //´°¿Ú´´½¨Ê±,»á×Ô¶¯²úÉú¸ÃÏûÏ¢,ÔÚÕâÀï×öÒ»Ğ©³õÊ¼»¯µÄ²Ù×÷»ò´´½¨×Ó´°¿Ú.
 		{
-			GetClientRect(hwnd,&rc); //è·å¾—çª—å£çš„å®¢æˆ·åŒºçŸ©å½¢.
+			GetClientRect(hwnd,&rc); //»ñµÃ´°¿ÚµÄ¿Í»§Çø¾ØĞÎ.
 			CreateWindow(BUTTON,L"OK",WS_VISIBLE,rc.w-80,8,68,32,hwnd,ID_OK,NULL,NULL);
 
 			InflateRectEx(&rc,-ITEM_W,-ITEM_H,-ITEM_W,-(ITEM_H+30));
@@ -411,16 +514,16 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		return DefWindowProc(hwnd,msg,wParam,lParam);
 		////
 
-		case WM_NOTIFY: //WM_NOTIFYæ¶ˆæ¯:wParamä½16ä½ä¸ºå‘é€è¯¥æ¶ˆæ¯çš„æ§ä»¶ID,é«˜16ä½ä¸ºé€šçŸ¥ç ;lParamæŒ‡å‘äº†ä¸€ä¸ªNMHDRç»“æ„ä½“.
+		case WM_NOTIFY: //WM_NOTIFYÏûÏ¢:wParamµÍ16Î»Îª·¢ËÍ¸ÃÏûÏ¢µÄ¿Ø¼şID,¸ß16Î»ÎªÍ¨ÖªÂë;lParamÖ¸ÏòÁËÒ»¸öNMHDR½á¹¹Ìå.
 		{
 			u16 code,id;
 
-			code =HIWORD(wParam); //è·å¾—é€šçŸ¥ç ç±»å‹.
-			id   =LOWORD(wParam); //è·å¾—äº§ç”Ÿè¯¥æ¶ˆæ¯çš„æ§ä»¶ID.
+			code =HIWORD(wParam); //»ñµÃÍ¨ÖªÂëÀàĞÍ.
+			id   =LOWORD(wParam); //»ñµÃ²úÉú¸ÃÏûÏ¢µÄ¿Ø¼şID.
 
-			if(id==ID_OK && code==BN_CLICKED) // æŒ‰é’®â€œå•å‡»â€äº†.
+			if(id==ID_OK && code==BN_CLICKED) // °´Å¥¡°µ¥»÷¡±ÁË.
 			{
-				PostCloseMessage(hwnd); //ä½¿äº§ç”ŸWM_CLOSEæ¶ˆæ¯å…³é—­çª—å£.
+				PostCloseMessage(hwnd); //Ê¹²úÉúWM_CLOSEÏûÏ¢¹Ø±Õ´°¿Ú.
 			}
 		}
 		break;
@@ -439,7 +542,7 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 		case WM_ERASEBKGND:
 		return TRUE;
 
-		case WM_PAINT: //çª—å£éœ€è¦ç»˜åˆ¶æ—¶ï¼Œä¼šè‡ªåŠ¨äº§ç”Ÿè¯¥æ¶ˆæ¯.
+		case WM_PAINT: //´°¿ÚĞèÒª»æÖÆÊ±£¬»á×Ô¶¯²úÉú¸ÃÏûÏ¢.
 		{
 			PAINTSTRUCT ps;
 			HDC hdc;
@@ -447,9 +550,9 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
 			GetClientRect(hwnd,&rc);
 
-			hdc =BeginPaint(hwnd,&ps); //å¼€å§‹ç»˜å›¾
+			hdc =BeginPaint(hwnd,&ps); //¿ªÊ¼»æÍ¼
 
-			////ç”¨æˆ·çš„ç»˜åˆ¶å†…å®¹...
+			////ÓÃ»§µÄ»æÖÆÄÚÈİ...
 			//TextOut(hdc,10,10,L"Hello",-1);
 			hdc_mem =CreateMemoryDC(SURF_SCREEN,rc.w,rc.h);
 
@@ -457,20 +560,20 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			_Draw(hdc_mem,hwnd);
 			BitBlt(hdc,0,0,rc.w,rc.h,hdc_mem,0,0,SRCCOPY);
 			DeleteDC(hdc_mem);
-			EndPaint(hwnd,&ps); //ç»“æŸç»˜å›¾
+			EndPaint(hwnd,&ps); //½áÊø»æÍ¼
 		}
 		break;
 		////
 
-		case WM_CLOSE: //çª—å£å…³é—­æ—¶ï¼Œä¼šè‡ªåŠ¨äº§ç”Ÿè¯¥æ¶ˆæ¯.
+		case WM_CLOSE: //´°¿Ú¹Ø±ÕÊ±£¬»á×Ô¶¯²úÉú¸ÃÏûÏ¢.
 		{
 
-			return DestroyWindow(hwnd); //è°ƒç”¨DestroyWindowå‡½æ•°é”€æ¯çª—å£ï¼Œè¯¥å‡½æ•°ä¼šä½¿ä¸»çª—å£ç»“æŸå¹¶é€€å‡ºæ¶ˆæ¯å¾ªç¯;å¦åˆ™çª—å£å°†ç»§ç»­è¿è¡Œ.
+			return DestroyWindow(hwnd); //µ÷ÓÃDestroyWindowº¯ÊıÏú»Ù´°¿Ú£¬¸Ãº¯Êı»áÊ¹Ö÷´°¿Ú½áÊø²¢ÍË³öÏûÏ¢Ñ­»·;·ñÔò´°¿Ú½«¼ÌĞøÔËĞĞ.
 		}
 		break;
 		////
 
-		default: //ç”¨æˆ·ä¸å…³å¿ƒçš„æ¶ˆæ¯,ç”±ç³»ç»Ÿå¤„ç†.
+		default: //ÓÃ»§²»¹ØĞÄµÄÏûÏ¢,ÓÉÏµÍ³´¦Àí.
 		{
 			return DefWindowProc(hwnd,msg,wParam,lParam);
 		}
@@ -494,25 +597,25 @@ void	GUI_DEMO_RadiaMenu(void)
 	wcex.Tag 		    = WNDCLASS_TAG;
 
 	wcex.Style			= CS_HREDRAW | CS_VREDRAW;
-	wcex.lpfnWndProc	= WinProc; //è®¾ç½®ä¸»çª—å£æ¶ˆæ¯å¤„ç†çš„å›è°ƒå‡½æ•°.
+	wcex.lpfnWndProc	= WinProc; //ÉèÖÃÖ÷´°¿ÚÏûÏ¢´¦ÀíµÄ»Øµ÷º¯Êı.
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= NULL;
 	wcex.hIcon			= NULL;
 	wcex.hCursor		= NULL;
 
-	//åˆ›å»ºä¸»çª—å£
+	//´´½¨Ö÷´°¿Ú
 	hwnd	=CreateWindowEx(	NULL,
 								&wcex,
-								_T("GUI_Demo: RadiaMenu"), //çª—å£åç§°
+								_T("GUI_Demo: RadiaMenu"), //´°¿ÚÃû³Æ
 								WS_OVERLAPPEDWINDOW,
-								10,20,600,400,    //çª—å£ä½ç½®å’Œå¤§å°
+								10,20,600,400,    //´°¿ÚÎ»ÖÃºÍ´óĞ¡
 								NULL,NULL,NULL,NULL);
 
-	//æ˜¾ç¤ºä¸»çª—å£
+	//ÏÔÊ¾Ö÷´°¿Ú
 	ShowWindow(hwnd,SW_SHOW);
 
-	//å¼€å§‹çª—å£æ¶ˆæ¯å¾ªç¯(çª—å£å…³é—­å¹¶é”€æ¯æ—¶,GetMessageå°†è¿”å›FALSE,é€€å‡ºæœ¬æ¶ˆæ¯å¾ªç¯)ã€‚
+	//¿ªÊ¼´°¿ÚÏûÏ¢Ñ­»·(´°¿Ú¹Ø±Õ²¢Ïú»ÙÊ±,GetMessage½«·µ»ØFALSE,ÍË³ö±¾ÏûÏ¢Ñ­»·)¡£
 	while(GetMessage(&msg,hwnd))
 	{
 		TranslateMessage(&msg);

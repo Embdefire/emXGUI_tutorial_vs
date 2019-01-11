@@ -50,7 +50,7 @@ void GUI_AppMain(void)
 
 	while (1)
 	{
-    GUI_DEMO_Rotatebitmap();
+    //GUI_DEMO_Rotatebitmap();
     GUI_DEMO_RadiaMenu();
 		GUI_DEMO_MultiWindow2();
     GUI_DEMO_RotateIcon();
