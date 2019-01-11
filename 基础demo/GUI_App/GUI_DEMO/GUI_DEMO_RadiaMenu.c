@@ -361,7 +361,7 @@ static void _Draw(HDC hdc,HWND hwnd)
           }
           else
           {
-#if 0
+#if 1
             /* 最前面的图标，放大 */
             HDC f_hdc;
             RECT rc0;
@@ -373,17 +373,17 @@ static void _Draw(HDC hdc,HWND hwnd)
             /* 显示APP对应的字体图标 */
             SetFont(f_hdc, iconFont);
 
-            rc0.x = rc.x;
-            rc0.y = rc.y;
+            rc0.x = 0;
+            rc0.y = 0;
             rc0.w = rc.w;
             rc0.h = rc.h;
 
             DrawText(f_hdc, (LPCWSTR)icon, -1, &rc0, DT_VCENTER | DT_CENTER);
 
-            BitBlt(hdc, rc.x, rc.y, rc.w, rc.h,
-                f_hdc,0,0, SRCCOPY);
-            //StretchBlt(hdc,rc.x,rc.y,rc.w,rc.h,
-            //  f_hdc,0,0,rc.w,rc.h, SRCCOPY);
+            //BitBlt(hdc, rc.x, rc.y, rc.w, rc.h,
+            //    f_hdc,0,0, SRCCOPY);
+            StretchBlt(hdc,rc.x,rc.y,rc.w*1.5,rc.h*1.5,
+              f_hdc,0,0,rc.w,rc.h, SRCCOPY);
             
             DeleteDC(f_hdc);
 
