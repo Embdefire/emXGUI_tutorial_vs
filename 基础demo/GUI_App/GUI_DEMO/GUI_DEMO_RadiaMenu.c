@@ -113,14 +113,25 @@ static void dummy(HWND hwnd)
 static const BITMAP_ITEM _aBitmapItem[] = {
 
     {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"A", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"按钮",		NULL, 	L"B", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"进度条",		NULL, 	L"C", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"显示汉字",		NULL, 	L"D", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_5,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"E", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"F", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"G", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"H", 	0XFFFFFF,			dummy},
-    {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"I", 	0XFFFFFF,			dummy},
+    {0x1002, &bm_fish_0,  L"Hello emXGUI" ,      L"按钮",		NULL, 	L"B", 	0XFFFFFF,			dummy},
+    {0x1003, &bm_fish_0,  L"Hello emXGUI" ,      L"进度条",		NULL, 	L"C", 	0XFFFFFF,			dummy},
+    {0x1004, &bm_fish_0,  L"Hello emXGUI" ,      L"显示汉字",		NULL, 	L"D", 	0XFFFFFF,			dummy},
+    {0x1005, &bm_fish_5,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"E", 	0XFFFFFF,			dummy},
+    {0x1006, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"F", 	0XFFFFFF,			dummy},
+    {0x1007, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"G", 	0XFFFFFF,			dummy},
+    {0x1008, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"H", 	0XFFFFFF,			dummy},
+    {0x1009, &bm_fish_0,  L"Hello emXGUI" ,      L"GUI应用",		NULL, 	L"I", 	0XFFFFFF,			dummy},
+
+
+    // {0x1001, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"A", 	0XFFFFFF,			dummy},
+    //{0x1002, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"B", 	0XFFFFFF,			dummy},
+    //{0x1003, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"C", 	0XFFFFFF,			dummy},
+    //{0x1004, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"D", 	0XFFFFFF,			dummy},
+    //{0x1005, &bm_fish_5,  L"Hello emXGUI" ,      L"",		NULL, 	L"E", 	0XFFFFFF,			dummy},
+    //{0x1006, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"F", 	0XFFFFFF,			dummy},
+    //{0x1007, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"G", 	0XFFFFFF,			dummy},
+    //{0x1008, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"H", 	0XFFFFFF,			dummy},
+    //{0x1009, &bm_fish_0,  L"Hello emXGUI" ,      L"",		NULL, 	L"I", 	0XFFFFFF,			dummy},
 
 
 };
@@ -187,6 +198,7 @@ static void _Init(int x,int y,int w,int h)
 
 	pPara->xSizeWin  = w;
 	pPara->ySizeWin  = h;
+  //printf("\r\nw = %d,h=%d", pPara->xSizeWin / 2, pPara->ySizeWin / 2);
 
 	pPara->xSizeItem = ITEM_W;//pPara->pBitmapItem[0].pBitmap->Width;
 	pPara->ySizeItem = ITEM_H;//pPara->pBitmapItem[0].pBitmap->Height;
@@ -382,7 +394,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 
             //BitBlt(hdc, rc.x, rc.y, rc.w, rc.h,
             //    f_hdc,0,0, SRCCOPY);
-            StretchBlt(hdc,rc.x,rc.y,rc.w*1.5,rc.h*1.5,
+            StretchBlt(hdc,rc.x,rc.y,rc.w*2.0,rc.h*2.0,
               f_hdc,0,0,rc.w,rc.h, SRCCOPY);
             
             DeleteDC(f_hdc);
@@ -458,9 +470,10 @@ static void _Draw(HDC hdc,HWND hwnd)
 	    	//rc.h =30;
 	    	//rc.y -=rc.h;
 	    	//DrawText(hdc,pText,-1,&rc,DT_VCENTER|DT_CENTER);
-
-			TextOut(hdc,_xPosRect,_yPosRect,pText,-1);
-
+        
+			//TextOut(hdc,_xPosRect,_yPosRect,pText,-1);
+        TextOut(hdc, pPara->rx, pPara->ry*3/2, pText, -1);
+        //printf("\r\nw = %d,h=%d", pPara->xSizeWin / 2, pPara->ySizeWin / 2);
 
 	      //GUI_DispStringHCenterAt((pPara->pBitmapItem + pPara->pItemInfo[pPara->NumItems - 1].Index)->pExplanation, _xPosRect, _yPosRect + _bmRectRed_60x60.YSize * 2 / 3);
 	    }
@@ -475,6 +488,7 @@ static void _Draw(HDC hdc,HWND hwnd)
 
 }
 
+void	GUI_DEMO_Hello(void);
 
 
 static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
@@ -488,7 +502,7 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			GetClientRect(hwnd,&rc); //获得窗口的客户区矩形.
 			CreateWindow(BUTTON,L"OK",WS_VISIBLE,rc.w-80,8,68,32,hwnd,ID_OK,NULL,NULL);
 
-			InflateRectEx(&rc,-ITEM_W,-ITEM_H,-ITEM_W,-(ITEM_H+30));
+			InflateRectEx(&rc,-ITEM_W,-ITEM_H,-ITEM_W,-(ITEM_H+110));
 			_Init(rc.x,rc.y,rc.w,rc.h);
 
 		}
@@ -578,6 +592,10 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 
 			menu_id =wParam;
 			printf("Menu Clicked: %08XH\r\n",menu_id);
+      if (menu_id == 0x1001)
+      {
+        GUI_DEMO_Hello();
+      }
 		}
 		break;
 		/////
@@ -652,7 +670,7 @@ void	GUI_DEMO_RadiaMenu(void)
 								&wcex,
 								_T("GUI_Demo: RadiaMenu"), //窗口名称
 								WS_OVERLAPPEDWINDOW,
-								10,20,600,400,    //窗口位置和大小
+								0,0, GUI_XSIZE, GUI_YSIZE,    //窗口位置和大小
 								NULL,NULL,NULL,NULL);
 
 	//显示主窗口
