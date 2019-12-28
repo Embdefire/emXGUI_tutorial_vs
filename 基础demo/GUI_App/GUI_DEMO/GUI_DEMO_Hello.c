@@ -97,7 +97,7 @@ static LRESULT	WinProc(HWND hwnd,UINT msg,WPARAM wParam,LPARAM lParam)
 			rc.w = rc.w * 4 / 10;
 			rc.h = rc.h * 2 / 10;
 
-			AA_DrawLine(hdc,rc.x,rc.y,rc.x + rc.w ,rc.y + rc.h); //画线
+			AA_DrawLine(hdc,rc.x,rc.y,rc.x + rc.w ,rc.y + rc.h, 0); //画线
 
 			SetBrushColor(hdc,MapRGB(hdc,0,200,0)); //设置画刷颜色(用于填充).
 			

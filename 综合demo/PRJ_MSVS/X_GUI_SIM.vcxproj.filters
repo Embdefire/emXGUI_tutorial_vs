@@ -34,6 +34,9 @@
     <Filter Include="data\pic">
       <UniqueIdentifier>{bd1d03ee-a929-4635-9d37-2a9016408df8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="X_GUI\OEM_Face">
+      <UniqueIdentifier>{9ba97813-f2e3-442c-a35d-fc65092e07cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\X_GUI_SIM.cpp">
@@ -233,6 +236,30 @@
     </ClCompile>
     <ClCompile Include="..\GUI_App\GUI_DEMO\GUI_DEMO_ShowWave.cpp">
       <Filter>GUI_App</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_Button.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_CheckBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_GroupBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ListBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ProgressBar.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_RadioBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_ScrollBar.c">
+      <Filter>X_GUI\OEM_Face</Filter>
+    </ClCompile>
+    <ClCompile Include="..\X_GUI\OEM_Face\OEM_TextBox.c">
+      <Filter>X_GUI\OEM_Face</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
